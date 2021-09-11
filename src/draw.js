@@ -1,13 +1,14 @@
 import { checkPoint, colors } from './helpers';
 
+const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 
-function clearCanvas(context) {
+export function clearCanvas(context) {
   context.fillStyle = '#fffff8';
   context.fillRect(0, 0, window.innerWidth, window.innerHeight);
 }
 
-export const drawLine = (x1, y1, color, x2, y2, context) => {
+function (x1, y1, color, x2, y2, context) {
   context.strokeStyle = color;
   context.lineWidth = 5;
   context.beginPath();
@@ -16,18 +17,13 @@ export const drawLine = (x1, y1, color, x2, y2, context) => {
   context.stroke();
 };
 
-export const drawCircle = (x, y, color, radius, context) => {
+function drawCircle (x, y, color, radius, context) {
   context.fillStyle = color;
   context.beginPath();
   context.arc(x, y, radius, 0, 2 * Math.PI);
   context.fill();
 };
 
-function render() {
-  clearCanvas(context);
-  const { ms, cs } = nodes$.getValue();
-  cs.forEach(renderNode(ms, cs, context));
-}
 
 function getNeighbors(n) {
   return function (node) {

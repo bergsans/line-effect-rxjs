@@ -17,5 +17,25 @@ export function getMouseXY(e) {
 
 export function checkPoint(a, b, x, y, r) {
   const distPoints = (a - x) * (a - x) + (b - y) * (b - y);
-  return distPoints < Math.pow(r, 2);
+  return distPoints < r ** 2;
+}
+
+export function initState(nNodes) {
+  return {
+    cs: Array.from({ length: nNodes }, (_) => {
+      const val = getRandomValue(1, 5);
+      return {
+        x: getRandomValue(-100, window.innerWidth + 100),
+        y: getRandomValue(-100, window.innerHeight + 100),
+        dx: getRandomValue(2, 5),
+        dy: getRandomValue(2, 5),
+        color: val,
+        size: val,
+      };
+    }),
+    ms: {
+      x: -1000,
+      y: -1000,
+    },
+  };
 }

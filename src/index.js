@@ -2,45 +2,26 @@ import { BehaviorSubject, fromEvent, Scheduler, interval } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
 import { clearCanvas, renderNode } from './render';
 import updateNode from './update';
-import { getRandomValue, getMouseXY } from './helpers';
+import { initState, getMouseXY } from './helpers';
 
 const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const nNodes = 300;
-const nodes$ = new BehaviorSubject({
-  cs: Array.from({ length: nNodes }, (_) => {
-    const val = getRandomValue(1, 5);
-    return {
-      x: getRandomValue(-100, window.innerWidth + 100),
-      y: getRandomValue(-100, window.innerHeight + 100),
-      dx: getRandomValue(2, 5),
-      dy: getRandomValue(2, 5),
-      color: val,
-      size: val,
-    };
-  }),
-  ms: {
-    x: -1000,
-    y: -1000,
-  },
-});
+const nNodes = 500;
+const initialState = initState(nNodes, canvas);
+const nodes$ = new BehaviorSubject(initialState);
 
-const observeMouseEvent = {
-  next: ({ x, y }) => {
-    const nodes$Value = nodes$.getValue();
-    nodes$.next({
-      cs: [...nodes$Value.cs],
-      ms: {
-        x,
-        y,
-      },
-    });
-  },
-};
-const clicks = fromEvent(canvas, 'click');
-clicks.pipe(debounceTime(50), map(getMouseXY)).subscribe(observeMouseEvent);
+function next({ x, y }) {
+  const nodes$Value = nodes$.getValue();
+  nodes$.next({
+    cs: [...nodes$Value.cs],
+    ms: {
+      x,
+      y,
+    },
+  });
+}
 
 function update() {
   const nodes = nodes$.getValue();
@@ -53,5 +34,7 @@ function render() {
   cs.forEach(renderNode(ms, cs));
 }
 
+const clicks = fromEvent(canvas, 'click');
+clicks.pipe(debounceTime(50), map(getMouseXY)).subscribe({ next });
 interval(0, Scheduler.animationFrame).subscribe(render);
 interval(Math.round(1000 / 60)).subscribe(update);
