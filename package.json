@@ -1,0 +1,23 @@
+{
+  "name": "line-effect-rxjs",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack && cp src/index.html dist/index.html"
+  },
+  "keywords": [],
+  "author": "Claes-Magnus Berg <bergclaesmagnus@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.3",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "rxjs": "^7.1.0"
+  }
+}
