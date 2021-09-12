@@ -26,16 +26,13 @@ function drawCircle(x, y, color, radius) {
   context.fill();
 }
 
-function getNeighbors(node) {
-  return function (n) {
-    return checkPoint(node.x, node.y, n.x, n.y, 100);
-  };
-}
-
-function linkNeighbors(node) {
-  return function (n) {
-    drawLine(node.x, node.y, colors[node.color], n.x, n.y);
-  };
+function drawLinkNeighbors(node, cs) {
+  for (const n of cs) {
+    const isNeighbor = checkPoint(node.x, node.y, n.x, n.y, 100);
+    if (isNeighbor) {
+      drawLine(node.x, node.y, colors[node.color], n.x, n.y);
+    }
+  }
 }
 
 export function renderNode({ x, y }, cs) {
@@ -43,7 +40,7 @@ export function renderNode({ x, y }, cs) {
     if (checkPoint(x, y, node.x, node.y, 200)) {
       drawLine(x, y, colors[0], node.x, node.y);
     }
-    cs.filter(getNeighbors(node)).forEach(linkNeighbors(node));
+    drawLinkNeighbors(node, cs);
     drawCircle(node.x, node.y, colors[node.color], node.size);
   };
 }
