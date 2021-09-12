@@ -1,7 +1,7 @@
 # Line Effect using RxJS
 
 ![screenshot](https://github.com/bergsans/line-effect-rxjs/blob/main/demo.gif)
-(Still from interactive play. Click to produce "super-node".)
+(Animated gif from interactive play. Clicks to produce a "super-node".)
 
 ## Setup
 ```
