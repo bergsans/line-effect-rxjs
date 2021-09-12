@@ -8,7 +8,7 @@ const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const nNodes = 500;
+const nNodes = (canvas.width * canvas.height) / 5000;
 const initialState = initState(nNodes);
 const nodes$ = new BehaviorSubject(initialState);
 
