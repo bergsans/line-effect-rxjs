@@ -27,7 +27,7 @@ function getRandomValueNoZero(v1, v2) {
 
 export function initState(nNodes) {
   return {
-    cs: Array.from({ length: nNodes }, (_) => {
+    nodes: Array.from({ length: nNodes }, (_) => {
       const val = getRandomValue(1, 5);
       const dx = getRandomValueNoZero(-5, 5);
       const dy = getRandomValueNoZero(-5, 5);
@@ -40,7 +40,7 @@ export function initState(nNodes) {
         size: val,
       };
     }),
-    ms: {
+    mousePosClicked: {
       x: -1000,
       y: -1000,
     },

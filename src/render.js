@@ -5,8 +5,11 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const context = canvas.getContext('2d');
 
+const darkGray = colors[0];
+const background = '#fffff8';
+
 export function clearCanvas() {
-  context.fillStyle = '#fffff8';
+  context.fillStyle = background;
   context.fillRect(0, 0, window.innerWidth, window.innerHeight);
 }
 
@@ -26,21 +29,33 @@ function drawCircle(x, y, color, radius) {
   context.fill();
 }
 
-function drawLinkNeighbors(node, cs) {
-  for (const n of cs) {
-    const isNeighbor = checkPoint(node.x, node.y, n.x, n.y, 100);
+function drawLinkNeighbors(node, nodes) {
+  for (const maybeNeighborNode of nodes) {
+    const isNeighbor = checkPoint(
+      node.x,
+      node.y,
+      maybeNeighborNode.x,
+      maybeNeighborNode.y,
+      100
+    );
     if (isNeighbor) {
-      drawLine(node.x, node.y, colors[node.color], n.x, n.y);
+      drawLine(
+        node.x,
+        node.y,
+        colors[node.color],
+        maybeNeighborNode.x,
+        maybeNeighborNode.y
+      );
     }
   }
 }
 
-export function renderNode({ x, y }, cs) {
+export function renderNode({ x, y }, nodes) {
   return (node) => {
     if (checkPoint(x, y, node.x, node.y, 200)) {
-      drawLine(x, y, colors[0], node.x, node.y);
+      drawLine(x, y, darkGray, node.x, node.y);
     }
-    drawLinkNeighbors(node, cs);
+    drawLinkNeighbors(node, nodes);
     drawCircle(node.x, node.y, colors[node.color], node.size);
   };
 }
