@@ -7,6 +7,7 @@ const context = canvas.getContext('2d');
 
 const darkGray = colors[0];
 const background = '#fffff8';
+const lineWidth = 2;
 
 export function clearCanvas() {
   context.fillStyle = background;
@@ -15,7 +16,7 @@ export function clearCanvas() {
 
 function drawLine(x1, y1, color, x2, y2) {
   context.strokeStyle = color;
-  context.lineWidth = 5;
+  context.lineWidth = lineWidth;
   context.beginPath();
   context.moveTo(x1, y1);
   context.lineTo(x2, y2);
