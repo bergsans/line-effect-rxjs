@@ -7,16 +7,15 @@ const context = canvas.getContext('2d');
 
 const darkGray = colors[0];
 const background = '#fffff8';
-const lineWidth = 2;
 
 export function clearCanvas() {
   context.fillStyle = background;
   context.fillRect(0, 0, window.innerWidth, window.innerHeight);
 }
 
-function drawLine(x1, y1, color, x2, y2) {
+function drawLine(x1, y1, color, x2, y2, w) {
   context.strokeStyle = color;
-  context.lineWidth = lineWidth;
+  context.lineWidth = w;
   context.beginPath();
   context.moveTo(x1, y1);
   context.lineTo(x2, y2);
@@ -45,7 +44,8 @@ function drawLinkNeighbors(node, nodes) {
         node.y,
         colors[node.color],
         maybeNeighborNode.x,
-        maybeNeighborNode.y
+        maybeNeighborNode.y,
+        node.size
       );
     }
   }
