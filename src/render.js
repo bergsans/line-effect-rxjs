@@ -30,21 +30,15 @@ function drawCircle(x, y, color, radius) {
 }
 
 function drawLinkNeighbors(node, nodes) {
-  for (const maybeNeighborNode of nodes) {
-    const isNeighbor = checkPoint(
-      node.x,
-      node.y,
-      maybeNeighborNode.x,
-      maybeNeighborNode.y,
-      100
-    );
+  for (let i = 0; i < nodes.length; i++) {
+    const isNeighbor = checkPoint(node.x, node.y, nodes[i].x, nodes[i].y, 100);
     if (isNeighbor) {
       drawLine(
         node.x,
         node.y,
         colors[node.color],
-        maybeNeighborNode.x,
-        maybeNeighborNode.y,
+        nodes[i].x,
+        nodes[i].y,
         node.size
       );
     }

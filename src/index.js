@@ -1,5 +1,5 @@
-import { BehaviorSubject, fromEvent, Scheduler, interval } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
+import { BehaviorSubject, fromEvent, Scheduler, interval } from 'rxjs';
 import { clearCanvas, renderNode } from './render';
 import updateNode from './update';
 import { initState, getMouseXY } from './helpers';
