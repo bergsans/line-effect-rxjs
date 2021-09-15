@@ -8,7 +8,7 @@ const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const nNodes = (canvas.width * canvas.height) / 5000;
+const nNodes = (canvas.width * canvas.height) / 8000;
 const initialState = initState(nNodes);
 const nodes$ = new BehaviorSubject(initialState);
 
@@ -23,9 +23,14 @@ function next({ x, y }) {
   });
 }
 
+const _updateNode = (n, _, ns) => updateNode(n, ns);
+
 function update() {
   const { mousePosClicked, nodes } = nodes$.getValue();
-  nodes$.next({ mousePosClicked, nodes: nodes.map(updateNode) });
+  nodes$.next({
+    mousePosClicked,
+    nodes: nodes.map(_updateNode),
+  });
 }
 
 function render() {

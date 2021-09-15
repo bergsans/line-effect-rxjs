@@ -29,28 +29,18 @@ function drawCircle(x, y, color, radius) {
   context.fill();
 }
 
-function drawLinkNeighbors(node, nodes) {
-  for (let i = 0; i < nodes.length; i++) {
-    const isNeighbor = checkPoint(node.x, node.y, nodes[i].x, nodes[i].y, 100);
-    if (isNeighbor) {
-      drawLine(
-        node.x,
-        node.y,
-        colors[node.color],
-        nodes[i].x,
-        nodes[i].y,
-        node.size
-      );
-    }
+function drawLinkNeighbors(node, ns) {
+  for (let i = 0; i < ns.length; i++) {
+    drawLine(node.x, node.y, node.color, ns[i].x, ns[i].y, node.size);
   }
 }
 
-export function renderNode({ x, y }, nodes) {
+export function renderNode({ x, y }) {
   return (node) => {
     if (checkPoint(x, y, node.x, node.y, 200)) {
       drawLine(x, y, darkGray, node.x, node.y);
     }
-    drawLinkNeighbors(node, nodes);
-    drawCircle(node.x, node.y, colors[node.color], node.size);
+    drawLinkNeighbors(node, node.ns);
+    drawCircle(node.x, node.y, node.color, node.size);
   };
 }

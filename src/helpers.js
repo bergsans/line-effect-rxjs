@@ -12,7 +12,13 @@ export const colors = [
 ];
 
 export function getMouseXY(e) {
-  return { x: e.clientX, y: e.clientY };
+  const canvas = document.querySelector('canvas');
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const x = Math.round((e.clientX - rect.left) * scaleX);
+  const y = Math.round((e.clientY - rect.top) * scaleY);
+  return { x, y };
 }
 
 export function checkPoint(a, b, x, y, r) {
@@ -36,8 +42,9 @@ export function initState(nNodes) {
         y: getRandomValue(-100, window.innerHeight + 100),
         dx,
         dy,
-        color: val,
+        color: colors[val],
         size: val,
+        ns: [],
       };
     }),
     mousePosClicked: {
